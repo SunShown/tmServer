@@ -112,9 +112,9 @@ public class WorkDao {
 	//提交课表
 	public String commitCourse(CourseInfo courseInfo){
 		int result = 0;
-		sql ="INSERT INTO `course` (weekfrom,weekto,day,lessonfrom,lessonto,coursename,userId,place)  VALUES (?,?,?,?,?,?,?,?)";
+		sql ="INSERT INTO `course` (weekfrom,weekto,day,lessonfrom,lessonto,coursename,userId,place,teacherName)  VALUES (?,?,?,?,?,?,?,?,?)";
 		try {
-			result = queryRunner.update(sql,courseInfo.weekfrom,courseInfo.weekto,courseInfo.day,courseInfo.lessonfrom,courseInfo.lessonto,courseInfo.getCoursename(),courseInfo.getUserId(),courseInfo.place);
+			result = queryRunner.update(sql,courseInfo.weekfrom,courseInfo.weekto,courseInfo.day,courseInfo.lessonfrom,courseInfo.lessonto,courseInfo.getCoursename(),courseInfo.getUserId(),courseInfo.place,courseInfo.getTeacherName());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
