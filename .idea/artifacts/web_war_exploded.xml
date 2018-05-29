@@ -7,6 +7,7 @@
         <element id="directory" name="classes">
           <element id="module-output" name="Fit" />
         </element>
+        <element id="dir-copy" path="$PROJECT_DIR$/out" />
       </element>
     </root>
   </artifact>

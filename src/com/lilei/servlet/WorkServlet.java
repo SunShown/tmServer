@@ -2,6 +2,7 @@ package com.lilei.servlet;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.lilei.dao.CourseInfo;
 import com.lilei.entity.Question;
 import com.lilei.entity.Qwork;
 import com.lilei.entity.Work;
@@ -82,5 +83,32 @@ public class WorkServlet extends BaseMobileServlet {
 		Work work = gson.fromJson(workStatus, Work.class);
 		String isSuccess = workDao.releaseWork(work);
 		return isSuccess+"";
+	}
+
+
+	//提交课程
+	public String commitCourse(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String course = request.getParameter("content");
+		Gson gson = new Gson();
+		CourseInfo work = gson.fromJson(course, CourseInfo.class);
+		String isSuccess = workDao.commitCourse(work);
+		return isSuccess+"";
+	}
+
+	//获取课程信息
+	public String getCourse(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String week = request.getParameter("week");
+		List<CourseInfo> couserInfo = workDao.getCourse(Integer.parseInt(week));
+		Gson  gson = new Gson();
+		return  gson.toJson(couserInfo);
+	}
+
+	//获取课程信息
+	public String deleteCourse(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String courseId = request.getParameter("courseId");
+		return workDao.deleteCourse(Integer.parseInt(courseId));
 	}
 }

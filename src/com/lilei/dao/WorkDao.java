@@ -109,5 +109,45 @@ public class WorkDao {
 		}
 
 	}
+	//提交课表
+	public String commitCourse(CourseInfo courseInfo){
+		int result = 0;
+		sql ="INSERT INTO `course` (weekfrom,weekto,day,lessonfrom,lessonto,coursename,userId,place)  VALUES (?,?,?,?,?,?,?,?)";
+		try {
+			result = queryRunner.update(sql,courseInfo.weekfrom,courseInfo.weekto,courseInfo.day,courseInfo.lessonfrom,courseInfo.lessonto,courseInfo.getCoursename(),courseInfo.getUserId(),courseInfo.place);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (result == 0){
+			return "error";
+		}else {
+			return "success";
+		}
+	}
+
+	public List<CourseInfo> getCourse(int week){
+		sql = "SELECT * FROM course WHERE weekfrom <= ? AND weekto >= ?";
+		try {
+			return queryRunner.query(sql,new BeanListHandler<CourseInfo>(CourseInfo.class),week,week);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public String deleteCourse(int courseId){
+		sql = "DELETE FROM course WHERE courseId = ?";
+		int i = 0;
+		try {
+			i = queryRunner.update(sql,courseId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if (i == 0){
+			return "error";
+		}else {
+			return "success";
+		}
+	}
 	
 }
