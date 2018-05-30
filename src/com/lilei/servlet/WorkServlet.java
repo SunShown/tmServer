@@ -66,7 +66,7 @@ public class WorkServlet extends BaseMobileServlet {
 
 	public String commitWork(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String workStatus = request.getParameter("workStatus");
+		String workStatus = request.getParameter("workDetail");
 		Gson gson = new Gson();
 		List<Qwork> qworks = gson.fromJson(workStatus, new TypeToken<ArrayList<Qwork>>() {
 		}.getType());

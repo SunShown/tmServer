@@ -36,10 +36,14 @@ public class UserServlet extends BaseMobileServlet {
 		
 		if (userDao.isExist(user.getUsername())) {
 			json = "该用户已经存在";
-		} else if (userDao.register(user)) {
-			json = gson.toJson(user);
 		} else {
-			json = "注册失败，请稍后重试！";
+			User user1 = userDao.register(user);
+			if (user1 != null){
+				json = gson.toJson(user1);
+
+			}else {
+				json = "注册失败";
+			}
 		}
 		return json;
 	}

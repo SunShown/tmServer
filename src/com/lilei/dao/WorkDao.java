@@ -90,6 +90,7 @@ public class WorkDao {
 		try {
 			int i = queryRunner.update(sql, work.getWorkTitle(), work.getUserId());
 			if (i == 1) {
+				Thread.sleep(300);
 				BigInteger query = queryRunner.query("SELECT LAST_INSERT_ID()",new ScalarHandler<BigInteger>());
 				insertId =  query;
 			}

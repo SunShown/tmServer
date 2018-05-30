@@ -1,5 +1,6 @@
 package com.lilei.dao;
 
+import java.math.BigInteger;
 import java.sql.SQLException;
 
 import org.apache.commons.dbutils.QueryRunner;
@@ -34,12 +35,25 @@ public class UserDao {
 		}
 	}
 	
-	public boolean register(User user) {
+	public User register(User user) {
+		User user1 = user;
+		int i =0;
+		BigInteger index = new BigInteger("0");
 		sql = "INSERT INTO user (username, `password`, status) VALUES (?, ?, ?);";
 		try {
-			return queryRunner.update(sql, user.getUsername(), user.getPassword(), user.getType()) > 0;
+			 i = queryRunner.update(sql, user.getUsername(), user.getPassword(), user.getType());
+			if (i != 0){
+				sql = "select * from user where username = ?";
+				user1 = queryRunner.query(sql, new BeanHandler<User>(User.class),user.getUsername());
+			}
+
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}
+		if (i == 0){
+			return null;
+		}else {
+			return user1;
 		}
 	}
 	
